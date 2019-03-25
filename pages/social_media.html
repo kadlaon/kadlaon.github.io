@@ -10,6 +10,108 @@ I am also one of the 70 selected Google Women Techmaker Scholars for the year 20
 <p align="justify">&#10004; Check my research works in  <a href="https://scholar.google.com.ph/citations?hl=en&user=dFWSuU4AAAAJ">Google Scholar</a> or 
   <a href="https://www.researchgate.net/profile/Kristine_Mae_Adlaon">Research Gate</a>. </p>
 <p align="justify">&#10004; Follow me on <a href="https://twitter.com/chibiscottish">Twitter</a></p>
+<p align="justify">&#10004; Drop a message <a href="#myModal">HERE</a></p>
+ <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Message</h4>
+          <h6 class="modal-title">If your message needs a reply please provide your email.</h6>
+        </div>
+         <div class="modal-body">
+         <input class="form-control" style="min-width: 100%" type="text" name="subject" placeholder="Email (optional)" />
+       	 <textarea name="text" class="form-control" style="min-width: 100%" placeholder="Message here"></textarea>
+		</div>
+        <div class="modal-footer">
+          <button type="submit" id="js_send" class="btn btn-default" data-dismiss="modal">Send</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+ 
+</div>
+ </form>
+<script>
+
+    //update this with your js_form selector
+    var form_id_js = "javascript_form";
+
+    var data_js = {
+        "access_token": "vobqg2mv5t6y2t1el6jordld" // sent after you sign up
+    };
+
+    function js_onSuccess() {
+        // remove this to avoid redirect
+        window.location = window.location.pathname + "?message=Email+Successfully+Sent%21&isError=0";
+    }
+
+    function js_onError(error) {
+        // remove this to avoid redirect
+        window.location = window.location.pathname + "?message=Email+could+not+be+sent.&isError=1";
+    }
+
+    var sendButton = document.getElementById("js_send");
+
+    function js_send() {
+        sendButton.value='Sending…';
+        sendButton.disabled=true;
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
+            if (request.readyState == 4 && request.status == 200) {
+                js_onSuccess();
+            } else
+            if(request.readyState == 4) {
+                js_onError(request.response);
+            }
+        };
+
+        var subject = document.querySelector("#" + form_id_js + " [name='subject']").value;
+        var message = document.querySelector("#" + form_id_js + " [name='text']").value;
+        data_js['subject'] = subject;
+        data_js['text'] = message;
+        var params = toParams(data_js);
+
+        request.open("POST", "https://postmail.invotes.com/send", true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        request.send(params);
+
+        return false;
+    }
+
+    sendButton.onclick = js_send;
+
+    function toParams(data_js) {
+        var form_data = [];
+        for ( var key in data_js ) {
+            form_data.push(encodeURIComponent(key) + "=" + encodeURIComponent(data_js[key]));
+        }
+
+        return form_data.join("&");
+    }
+
+    var js_form = document.getElementById(form_id_js);
+    js_form.addEventListener("submit", function (e) {
+        e.preventDefault();
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <hr>
